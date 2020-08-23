@@ -1,34 +1,69 @@
-# Create a class to hold a city location. Call the class "City". It should have
+# Create a class called City to hold a city location. It should have
 # fields for name, lat and lon (representing latitude and longitude).
+####
+####
+import csv 
 
+class City:
+  def __init__(self, name, lat, lon):
+    self.name = name
+    self.lat = lat
+    self.lon = lon
+  
+  def __str__(self):
+    return f'{self.name} | Latitude: {self.lat}, Longitude: {self.lon}'
 
 # We have a collection of US cities with population over 750,000 stored in the
-# file "cities.csv". (CSV stands for "comma-separated values".)
+# file "cities.csv" - "comma-separated values".)
 #
-# In the body of the `cityreader` function, use Python's built-in "csv" module 
-# to read this file so that each record is imported into a City instance. Then
-# return the list with all the City instances from the function.
-# Google "python 3 csv" for references and use your Google-fu for other examples.
+# 1. In the body of the `cityreader` function
+#     use Python's built-in "csv" module to read the CSV file so that each record is imported into a City instance
+# 
+# 
+# 2. Return the LIST with all the City instances from the function.
+#     Google "python 3 csv" for references
+#     use your Google-fu for other examples
 #
-# Store the instances in the "cities" list, below.
+# 3. Store the instances in the "cities" LIST, below.
 #
 # Note that the first line of the CSV is header that describes the fields--this
 # should not be loaded into a City object.
 cities = []
 
+csv_filename = 'cities.csv'
+
 def cityreader(cities=[]):
-  # TODO Implement the functionality to read from the 'cities.csv' file
+  # TODO 
+  # Implement the functionality to read from the 'cities.csv' file
+
   # Ensure that the lat and lon valuse are all floats
+
   # For each city record, create a new City instance and add it to the 
   # `cities` list
-    
-    return cities
+
+  with open(csv_filename, 'r') as csv_file:
+    csv_reader = csv.reader(csv_file)
+
+    next(csv_reader)
+
+    for city in csv_reader:
+      cities.append(City(city[0], float(city[3]), float(city[4])))
+      
+  return cities
 
 cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
-    print(c)
+    print(c.name, c.lat, c.lon)
+
+
+
+
+
+
+
+
 
 # STRETCH GOAL!
 #
